@@ -32,16 +32,18 @@ fn main() -> Result<(), Error> {
         println!("Need a file to try to read?");
         process::exit(0x0100);
     }
-    let file = &args[1];
 
-    if !Path::new(file).exists() {
-        println!("{} Doesn't exit?", file);
-        process::exit(0x0101);
+    // Skip first arg, as it's probably oneseelf
+    for file in args[1..].into_iter() {
+        if !Path::new(&file).exists() {
+            println!("{} Doesn't exit?", &file);
+            process::exit(0x0101);
+        }
+
+        let contents = fs::read(&file)?;
+        let foo = String::from_utf8_lossy(&contents);
+        let s = make_skin();
+        s.print_text(&foo);
     }
-
-    let contents = fs::read(file)?;
-    let foo = String::from_utf8_lossy(&contents);
-    let s = make_skin();
-    s.print_text(&foo);
     Ok(())
 }
