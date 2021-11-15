@@ -9,12 +9,13 @@ use termimad::*;
 fn make_skin() -> MadSkin {
     let mut skin = MadSkin::default();
 
-    skin.set_headers_fg(rgb(95, 175, 175));
+    skin.set_headers_fg(rgb(64, 157, 254));
     skin.italic.add_attr(Underlined);
 
     for h in &mut skin.headers {
         h.align = Alignment::Left;
         h.add_attr(Bold);
+        h.set_fg(rgb(0x75, 0x71, 0xF9));
     }
 
     skin.scrollbar.thumb.set_fg(ansi(178));
